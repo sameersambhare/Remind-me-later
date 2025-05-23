@@ -16,6 +16,11 @@ const reminderSchema=new mongoose.Schema({
     email: {
         type: String,
         required: true
+    },
+    status: {
+        type: String,
+        enum: ['pending', 'sent', 'failed'],
+        default: 'pending'
     }
 }, {
     timestamps: true
