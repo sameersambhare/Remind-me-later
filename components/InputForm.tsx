@@ -27,13 +27,14 @@ const InputForm = () => {
       date: "",
       time: "",
       message: "",
+      email: "",
     },
   })
  
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setIsLoading(true);
-      const reminder = await createReminder(values.date, values.time, values.message);
+      const reminder = await createReminder(values.date, values.time, values.message, values.email);
       console.log(reminder);
       toast.success("Reminder created successfully!");
       form.reset();
@@ -48,6 +49,28 @@ const InputForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 border p-4 rounded-md w-full max-w-md">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input 
+                  type="email" 
+                  placeholder="Enter your email address..." 
+                  {...field} 
+                  disabled={isLoading}
+                />
+              </FormControl>
+              <FormDescription>
+                We'll send the reminder to this email address.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={form.control}
           name="date"
