@@ -1,7 +1,11 @@
 import { z } from "zod"
  
 const formSchema = z.object({
-  username: z.string().min(2).max(50),
+  date: z.string().min(1, { message: "Date is required" }),
+  time: z.string().min(1, { message: "Time is required" }),
+  message: z.string()
+    .min(1, { message: "Message is required" })
+    .max(500, { message: "Message must be less than 500 characters" }),
 })
 
 export default formSchema;
